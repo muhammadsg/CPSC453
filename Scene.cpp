@@ -26,7 +26,7 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	InitializeTexture(&texture1, "image1-mandrill.png", GL_TEXTURE_RECTANGLE);
 	InitializeTexture(&texture2, "image2-uclogo.png", GL_TEXTURE_RECTANGLE);
 	InitializeTexture(&texture3, "image3-aerial.jpg", GL_TEXTURE_RECTANGLE);
-	InitializeTexture(&texture4, "image4-thirsk.png", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture4, "image4-thirsk.jpg", GL_TEXTURE_RECTANGLE);
 	InitializeTexture(&texture5, "image5-pattern.png", GL_TEXTURE_RECTANGLE);
 	InitializeTexture(&texture6, "image6-bubble.png", GL_TEXTURE_RECTANGLE);
 	InitializeTexture(&texture7, "image1-mandrill.png", GL_TEXTURE_RECTANGLE);
@@ -62,9 +62,9 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	rectangle.colors.push_back(glm::vec3( 1.0f, 0.0f, 0.0f));*/
 
 
-	Draw(texture1);
+	
 	rectangle.drawMode = GL_TRIANGLES;
-
+	Draw(texture1);
 	/*rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
 	rectangle.uvs.push_back(glm::vec2( float(texture.width), 0.f));
 	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
@@ -73,15 +73,13 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));*/
 
 	//Construct vao and vbos for the triangle
-	RenderingEngine::assignBuffers(rectangle);
-
+	
 	//Send the triangle data to the GPU
 	//Must be done every time the triangle is modified in any way, ex. verts, colors, normals, uvs, etc.
-	RenderingEngine::setBufferData(rectangle);
+	
 
 	//Add the triangle to the scene objects
-	objects.push_back(rectangle);
-
+	
 }
 void Scene::Draw(MyTexture texture)
 {
@@ -97,10 +95,12 @@ void Scene::Draw(MyTexture texture)
 	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
 	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
 	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));
+	RenderingEngine::assignBuffers(rectangle);
+	RenderingEngine::setBufferData(rectangle);
 	objects.push_back(rectangle);
 }
 void Scene::Reload(int sc)
-{
+{	RenderingEngine::deleteBufferData(rectangle);
 	rectangle.verts.clear();
 	rectangle.uvs.clear();
 	objects.clear();

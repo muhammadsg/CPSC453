@@ -19,7 +19,8 @@ uniform float time;
 vec2 waveOffset(vec2 position){
     float distFromCenter = length(position);
     float frequency = 12.0;
-    return vec2(cos(distFromCenter*frequency + time), sin(distFromCenter*frequency + time))* 10.0;
+    //return vec2(cos(distFromCenter*frequency + time), sin(distFromCenter*frequency + time))* 10.0;
+    return position;
 }
 
 void main(void)

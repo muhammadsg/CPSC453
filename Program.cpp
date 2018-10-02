@@ -17,8 +17,10 @@
 #include "RenderingEngine.h"
 #include "Scene.h"
 int sc;
+bool reload;
 Program::Program() {
 	sc=1;
+	reload=false;
 	setupWindow();
 }
 
@@ -37,6 +39,10 @@ void Program::start() {
 		scene->displayScene();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		if (reload==true){
+			//call new scene func
+			reload=false;
+		}
 	}
 
 }
@@ -107,24 +113,31 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	}
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
 		sc=1;
+		reload=true;
 	}
 	if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
 		sc2;
+		reload=true;
 	}
 	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
 		sc=3;
+		reload=true;
 	}
 	if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
 		sc=4;
+		reload=true;
 	}
 	if (key == GLFW_KEY_5 && action == GLFW_PRESS) {
 		sc=5;
+		reload=true;
 	}
 	if (key == GLFW_KEY_6 && action == GLFW_PRESS) {
 		sc=6;
+		reload=true;
 	}
 	if (key == GLFW_KEY_7 && action == GLFW_PRESS) {
 		sc=7;
+		reload=true;
 	}
 	
 	

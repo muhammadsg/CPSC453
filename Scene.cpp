@@ -20,19 +20,24 @@
 #include <GLFW/glfw3.h>
 
 #include "texture.h"
-
+MyTexture texture1,texture2,texture3,texture4,texture5,texture6,texture7;
 Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 
-	MyTexture texture;
-	InitializeTexture(&texture, "image1-mandrill.png", GL_TEXTURE_RECTANGLE);
-
+	
+	InitializeTexture(&texture1, "image1-mandrill.png", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture2, "image2-uclogo.png", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture3, "image3-aerial.jpg", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture4, "image4-thirsk.png", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture5, "image5-pattern.png", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture6, "image6-bubble.png", GL_TEXTURE_RECTANGLE);
+	InitializeTexture(&texture7, "image1-mandrill.png", GL_TEXTURE_RECTANGLE);
 	//Load texture uniform
 	//Shaders need to be active to load uniforms
 	glUseProgram(renderer->shaderProgram);
 	//Set which texture unit the texture is bound to
 	glActiveTexture(GL_TEXTURE0);
 	//Bind the texture to GL_TEXTURE0
-	glBindTexture(GL_TEXTURE_RECTANGLE, texture.textureID);
+	glBindTexture(GL_TEXTURE_RECTANGLE, texture1.textureID);
 	//Get identifier for uniform
 	GLuint uniformLocation = glGetUniformLocation(renderer->shaderProgram, "imageTexture");
 	//Load texture unit number into uniform
@@ -79,7 +84,23 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	objects.push_back(rectangle);
 
 }
-
+void Scene::Reload(int sc)
+{
+	if(sc==1)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture1.textureID);
+	if(sc==2)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture2.textureID);
+	if(sc==3)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture3.textureID);
+	if(sc==4)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture4.textureID);
+	if(sc==5)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture5.textureID);
+	if(sc==6)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture6.textureID);
+	if(sc==7)
+		glBindTexture(GL_TEXTURE_RECTANGLE, texture7.textureID);	
+}
 Scene::~Scene() {
 
 }

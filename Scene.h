@@ -20,7 +20,7 @@ class Scene {
 public:
 	Scene(RenderingEngine* renderer);
 	virtual ~Scene();
-
+	void reload(int scene);
 	//Send geometry to the renderer
 	void displayScene();
 

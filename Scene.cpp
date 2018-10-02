@@ -18,8 +18,7 @@
 //**Must include glad and GLFW in this order or it breaks**
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include "texture.h"
+#include <iostream>
 MyTexture texture1,texture2,texture3,texture4,texture5,texture6,texture7;
 Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 
@@ -48,7 +47,7 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	}
 
 		// three vertex positions and assocated colours of a triangle
-	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
+	/*rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f,  -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
@@ -63,15 +62,15 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	rectangle.colors.push_back(glm::vec3( 1.0f, 0.0f, 0.0f));*/
 
 
-
+	Draw(texture1);
 	rectangle.drawMode = GL_TRIANGLES;
 
-	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
+	/*rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
 	rectangle.uvs.push_back(glm::vec2( float(texture.width), 0.f));
 	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
 	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
 	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
-	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));
+	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));*/
 
 	//Construct vao and vbos for the triangle
 	RenderingEngine::assignBuffers(rectangle);
@@ -84,22 +83,51 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	objects.push_back(rectangle);
 
 }
+void Scene::Draw(MyTexture texture)
+{
+	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
+	rectangle.verts.push_back(glm::vec3( 0.9f,  -0.9f, 1.0f));
+	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
+	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
+	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
+	rectangle.verts.push_back(glm::vec3( -0.9f, 0.9f, 1.0f));
+	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width), 0.f));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
+	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
+	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));
+	objects.push_back(rectangle);
+}
 void Scene::Reload(int sc)
 {
+	rectangle.verts.clear();
+	rectangle.uvs.clear();
+	objects.clear();
 	if(sc==1)
+	{
 		glBindTexture(GL_TEXTURE_RECTANGLE, texture1.textureID);
+		Draw(texture1);
+	}
 	if(sc==2)
-		glBindTexture(GL_TEXTURE_RECTANGLE, texture2.textureID);
-	if(sc==3)
-		glBindTexture(GL_TEXTURE_RECTANGLE, texture3.textureID);
-	if(sc==4)
-		glBindTexture(GL_TEXTURE_RECTANGLE, texture4.textureID);
-	if(sc==5)
-		glBindTexture(GL_TEXTURE_RECTANGLE, texture5.textureID);
-	if(sc==6)
-		glBindTexture(GL_TEXTURE_RECTANGLE, texture6.textureID);
-	if(sc==7)
-		glBindTexture(GL_TEXTURE_RECTANGLE, texture7.textureID);	
+	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture2.textureID);
+		Draw(texture2);
+	}if(sc==3)
+	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture3.textureID);
+		Draw(texture3);
+	}if(sc==4)
+	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture4.textureID);
+		Draw(texture4);
+	}if(sc==5)
+	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture5.textureID);
+		Draw(texture5);
+	}if(sc==6)
+	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture6.textureID);
+		Draw(texture6);
+	}if(sc==7)
+	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture7.textureID);
+		Draw(texture7);	
+	}
 }
 Scene::~Scene() {
 

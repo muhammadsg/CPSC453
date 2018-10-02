@@ -12,6 +12,7 @@
 
 #include "Geometry.h"
 
+#include "texture.h"
 //Forward declaration of classes
 //(note this is necessary because these are pointers and it allows the #include to appear in the .cpp file)
 class RenderingEngine;
@@ -20,7 +21,8 @@ class Scene {
 public:
 	Scene(RenderingEngine* renderer);
 	virtual ~Scene();
-	void reload(int scene);
+	void Reload(int sc);
+	void Draw (MyTexture texture);
 	//Send geometry to the renderer
 	void displayScene();
 

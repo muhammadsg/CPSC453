@@ -40,7 +40,7 @@ void Program::start() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if (reload==true){
-			//call new scene func
+			scene->Reload(sc);
 			reload=false;
 		}
 	}
@@ -116,7 +116,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		reload=true;
 	}
 	if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
-		sc2;
+		sc=2;
 		reload=true;
 	}
 	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {

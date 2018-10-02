@@ -16,9 +16,9 @@
 
 #include "RenderingEngine.h"
 #include "Scene.h"
-int scene;
+int sc;
 Program::Program() {
-	scene=1;
+	sc=1;
 	setupWindow();
 }
 
@@ -106,25 +106,25 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
-		scene=1;
+		sc=1;
 	}
 	if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
-		scene=2;
+		sc2;
 	}
 	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
-		scene=3;
+		sc=3;
 	}
 	if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
-		scene=4;
+		sc=4;
 	}
 	if (key == GLFW_KEY_5 && action == GLFW_PRESS) {
-		scene=5;
+		sc=5;
 	}
 	if (key == GLFW_KEY_6 && action == GLFW_PRESS) {
-		scene=6;
+		sc=6;
 	}
 	if (key == GLFW_KEY_7 && action == GLFW_PRESS) {
-		scene=7;
+		sc=7;
 	}
 	
 	

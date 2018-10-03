@@ -18,8 +18,10 @@
 #include "Scene.h"
 int sc;
 bool reload;
+float zoom;
 Program::Program() {
 	sc=1;
+	zoom=0;
 	reload=false;
 	setupWindow();
 }
@@ -40,7 +42,7 @@ void Program::start() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if (reload==true){
-			scene->Reload(sc,10);
+			scene->Reload(sc,zoom);
 			reload=false;
 		}
 	}
@@ -74,7 +76,7 @@ void Program::setupWindow() {
 
 	//Set the custom function that tracks key presses
 	glfwSetKeyCallback(window, KeyCallback);
-
+	glfwSetScrollCallback(window, scroll_callback);
 	//Bring the new window to the foreground (not strictly necessary but convenient)
 	glfwMakeContextCurrent(window);
 
@@ -143,4 +145,11 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	
 	
 	
+}
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+zoom+=yoffset;
+if(zoom<0)
+	zoom=0;
+reload=true;
 }

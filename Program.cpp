@@ -40,7 +40,7 @@ void Program::start() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if (reload==true){
-			scene->Reload(sc);
+			scene->Reload(sc,10);
 			reload=false;
 		}
 	}

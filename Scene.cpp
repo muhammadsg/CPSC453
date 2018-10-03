@@ -47,7 +47,7 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	}
 
 		// three vertex positions and assocated colours of a triangle
-	/*rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
+	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f,  -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
@@ -64,13 +64,15 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 
 	
 	rectangle.drawMode = GL_TRIANGLES;
-	Draw(texture1);
-	/*rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width), 0.f));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
 	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
-	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));*/
+	rectangle.uvs.push_back(glm::vec2( float(texture1.width), 0.f));
+	rectangle.uvs.push_back(glm::vec2( float(texture1.width), float(texture1.height)));
+	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
+	rectangle.uvs.push_back(glm::vec2( float(texture1.width), float(texture1.height)));
+	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture1.height)));
+	RenderingEngine::assignBuffers(rectangle);
+	RenderingEngine::setBufferData(rectangle);
+	objects.push_back(rectangle);
 
 	//Construct vao and vbos for the triangle
 	
@@ -81,7 +83,7 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	//Add the triangle to the scene objects
 	
 }
-void Scene::Draw(MyTexture texture)
+void Scene::Draw(MyTexture texture, double zoom)
 {
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f,  -0.9f, 1.0f));
@@ -89,17 +91,17 @@ void Scene::Draw(MyTexture texture)
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( -0.9f, 0.9f, 1.0f));
-	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width), 0.f));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
-	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
-	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));
+	rectangle.uvs.push_back(glm::vec2( 0.0f+10*zoom, 0.0f+10*zoom));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width)-10*zoom, 0.0f+10*zoom));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width)-10*zoom, float(texture.height)-10*zoom));
+	rectangle.uvs.push_back(glm::vec2( 0.0f+10*zoom, 0.0f+10*zoom));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width)-10*zoom, float(texture.height)-10*zoom));
+	rectangle.uvs.push_back(glm::vec2(0.0f+10*zoom, float(texture.height)-10*zoom));
 	RenderingEngine::assignBuffers(rectangle);
 	RenderingEngine::setBufferData(rectangle);
 	objects.push_back(rectangle);
 }
-void Scene::Reload(int sc)
+void Scene::Reload(int sc,double zoom)
 {	RenderingEngine::deleteBufferData(rectangle);
 	rectangle.verts.clear();
 	rectangle.uvs.clear();
@@ -107,26 +109,26 @@ void Scene::Reload(int sc)
 	if(sc==1)
 	{
 		glBindTexture(GL_TEXTURE_RECTANGLE, texture1.textureID);
-		Draw(texture1);
+		Draw(texture1,zoom);
 	}
 	if(sc==2)
 	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture2.textureID);
-		Draw(texture2);
+		Draw(texture2,zoom);
 	}if(sc==3)
 	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture3.textureID);
-		Draw(texture3);
+		Draw(texture3,zoom);
 	}if(sc==4)
 	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture4.textureID);
-		Draw(texture4);
+		Draw(texture4,zoom);
 	}if(sc==5)
 	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture5.textureID);
-		Draw(texture5);
+		Draw(texture5,zoom);
 	}if(sc==6)
 	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture6.textureID);
-		Draw(texture6);
+		Draw(texture6,zoom);
 	}if(sc==7)
 	{	glBindTexture(GL_TEXTURE_RECTANGLE, texture7.textureID);
-		Draw(texture7);	
+		Draw(texture7,zoom);	
 	}
 }
 Scene::~Scene() {

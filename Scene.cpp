@@ -80,23 +80,33 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	//Must be done every time the triangle is modified in any way, ex. verts, colors, normals, uvs, etc.
 	
 
-	//Add the triangle to the scene objects
-	
+	//Add the triangle to the scene delta_width
+
 }
+float delta_width,delta_height;
 void Scene::Draw(MyTexture texture, double zoom)
 {
+	if((texture.width)<(texture.height)){
+		delta_width=float((texture.width/texture.height))*10*zoom;
+		delta_height=float(10*zoom);
+		}
+	else{
+		delta_height=float((texture.height/texture.width))*10*zoom;
+		delta_width=float(10*zoom);
+		}
+
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f,  -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( -0.9f, 0.9f, 1.0f));
-	rectangle.uvs.push_back(glm::vec2( 0.0f+10*zoom, 0.0f+10*zoom));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width)-10*zoom, 0.0f+10*zoom));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width)-10*zoom, float(texture.height)-10*zoom));
-	rectangle.uvs.push_back(glm::vec2( 0.0f+10*zoom, 0.0f+10*zoom));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width)-10*zoom, float(texture.height)-10*zoom));
-	rectangle.uvs.push_back(glm::vec2(0.0f+10*zoom, float(texture.height)-10*zoom));
+	rectangle.uvs.push_back(glm::vec2( 0.0f+delta_width, 0.0f+delta_height));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width)-delta_width, 0.0f+delta_height));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width)-delta_width, float(texture.height)-delta_height));
+	rectangle.uvs.push_back(glm::vec2( 0.0f+delta_width, 0.0f+delta_height));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width)-delta_width, float(texture.height)-delta_height));
+	rectangle.uvs.push_back(glm::vec2(0.0f+delta_width, float(texture.height)-delta_height));
 	RenderingEngine::assignBuffers(rectangle);
 	RenderingEngine::setBufferData(rectangle);
 	objects.push_back(rectangle);

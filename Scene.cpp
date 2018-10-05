@@ -20,6 +20,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 MyTexture texture1,texture2,texture3,texture4,texture5,texture6,texture7;
+
+
 Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 
 	
@@ -65,7 +67,7 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 	
 	rectangle.drawMode = GL_TRIANGLES;
 	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
-	rectangle.uvs.push_back(glm::vec2( float(texture1.width), 0.f));
+	rectangle.uvs.push_back(glm::vec2( float(texture1.width), 0.0f));
 	rectangle.uvs.push_back(glm::vec2( float(texture1.width), float(texture1.height)));
 	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
 	rectangle.uvs.push_back(glm::vec2( float(texture1.width), float(texture1.height)));
@@ -84,16 +86,16 @@ Scene::Scene(RenderingEngine* renderer) : renderer(renderer) {
 
 }
 float delta_width,delta_height;
-void Scene::Draw(MyTexture texture, double zoom)
+void Scene::Draw(MyTexture texture, int zoom)
 {
-	if((texture.width)<(texture.height)){
+	/*if((texture.width)<(texture.height)){
 		delta_width=float((texture.width/texture.height))*10*zoom;
 		delta_height=float(10*zoom);
 		}
 	else{
 		delta_height=float((texture.height/texture.width))*10*zoom;
 		delta_width=float(10*zoom);
-		}
+		}*/
 
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f,  -0.9f, 1.0f));
@@ -101,17 +103,17 @@ void Scene::Draw(MyTexture texture, double zoom)
 	rectangle.verts.push_back(glm::vec3( -0.9f, -0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( 0.9f, 0.9f, 1.0f));
 	rectangle.verts.push_back(glm::vec3( -0.9f, 0.9f, 1.0f));
-	rectangle.uvs.push_back(glm::vec2( 0.0f+delta_width, 0.0f+delta_height));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width)-delta_width, 0.0f+delta_height));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width)-delta_width, float(texture.height)-delta_height));
-	rectangle.uvs.push_back(glm::vec2( 0.0f+delta_width, 0.0f+delta_height));
-	rectangle.uvs.push_back(glm::vec2( float(texture.width)-delta_width, float(texture.height)-delta_height));
-	rectangle.uvs.push_back(glm::vec2(0.0f+delta_width, float(texture.height)-delta_height));
+	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width), 0.0f));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
+	rectangle.uvs.push_back(glm::vec2( 0.0f, 0.0f));
+	rectangle.uvs.push_back(glm::vec2( float(texture.width), float(texture.height)));
+	rectangle.uvs.push_back(glm::vec2(0.0f, float(texture.height)));
 	RenderingEngine::assignBuffers(rectangle);
 	RenderingEngine::setBufferData(rectangle);
 	objects.push_back(rectangle);
 }
-void Scene::Reload(int sc,double zoom)
+void Scene::Reload(int sc,int zoom)
 {	RenderingEngine::deleteBufferData(rectangle);
 	rectangle.verts.clear();
 	rectangle.uvs.clear();

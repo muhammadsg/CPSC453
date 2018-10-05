@@ -36,6 +36,9 @@ public:
 
 	//Pointer to the current shader program being used to render
 	GLuint shaderProgram;
+
+	GLuint location;
+	float zoom;
 };
 
 #endif /* RENDERINGENGINE_H_ */

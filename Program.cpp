@@ -16,12 +16,13 @@
 
 #include "RenderingEngine.h"
 #include "Scene.h"
+
 int sc;
 bool reload;
-float zoom;
+RenderingEngine* renderer;
+
 Program::Program() {
 	sc=1;
-	zoom=0;
 	reload=false;
 	setupWindow();
 }
@@ -36,13 +37,14 @@ void Program::start() {
 	renderingEngine = new RenderingEngine();
 	scene = new Scene(renderingEngine);
 
+	renderer = renderingEngine;
 	//Main render loop
 	while(!glfwWindowShouldClose(window)) {
 		scene->displayScene();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if (reload==true){
-			scene->Reload(sc,zoom);
+			scene->Reload(sc,renderingEngine->zoom);
 			reload=false;
 		}
 	}
@@ -148,8 +150,9 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 }
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-zoom+=yoffset;
-if(zoom<0)
-	zoom=0;
+renderer->zoom += yoffset;
+std::cout << renderer->zoom << std::endl;
+if(renderer->zoom<0)
+	renderer->zoom=0;
 reload=true;
 }

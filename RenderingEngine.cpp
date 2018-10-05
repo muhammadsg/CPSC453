@@ -12,16 +12,15 @@
 //cpp file purposely included here because it just contains some global functions
 #include "ShaderTools.h"
 
-float timeA = 0.0f;
-GLuint location;
-
 RenderingEngine::RenderingEngine() {
 	shaderProgram = ShaderTools::InitializeShaders();
 	if (shaderProgram == 0) {
 		std::cout << "Program could not initialize shaders, TERMINATING" << std::endl;
 		return;
 	}
-	location = glGetUniformLocation(shaderProgram, "time"); //Passing data from program into our shader
+
+	zoom = 1;
+	location = glGetUniformLocation(shaderProgram, "zoom"); //Passing data from program into our shader
 
 }
 
@@ -38,6 +37,9 @@ void RenderingEngine::RenderScene(const std::vector<Geometry>& objects) {
 	// scene geometry, then tell OpenGL to draw our geometry
 	glUseProgram(shaderProgram);
 
+	//To pass new data into shader
+	glUniform1f(location, zoom); 
+
 	for (const Geometry& g : objects) {
 		glBindVertexArray(g.vao);
 		glDrawArrays(g.drawMode, 0, g.verts.size());
@@ -47,7 +49,6 @@ void RenderingEngine::RenderScene(const std::vector<Geometry>& objects) {
 	}
 	glUseProgram(0);
 
-	timeA += 0.01f;
 
 	// check for an report any OpenGL errors
 	CheckGLErrors();

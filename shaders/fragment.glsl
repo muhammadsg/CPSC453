@@ -5,7 +5,7 @@
 // Date:    December 2015
 // ==========================================================================
 #version 410
-
+//Image effects here (thsis is run per pixel)
 // interpolated colour received from vertex stage
 in vec2 uv;
 in vec3 FragmentPosition;
@@ -14,19 +14,11 @@ in vec3 FragmentPosition;
 out vec4 FragmentColour;
 
 uniform sampler2DRect imageTexture;
-uniform float time;
-
-vec2 waveOffset(vec2 position){
-    float distFromCenter = length(position);
-    float frequency = 12.0;
-    //return vec2(cos(distFromCenter*frequency + time), sin(distFromCenter*frequency + time))* 10.0;
-    return position;
-}
 
 void main(void)
 {
     // write colour output without modification
     //FragmentColour = vec4(Colour, 0);
-	FragmentColour = texture(imageTexture, uv+waveOffset(FragmentPosition.xy));
+	FragmentColour = texture(imageTexture, uv);
 
 }

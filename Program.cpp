@@ -84,12 +84,8 @@ void Program::setupWindow() {
 	//Set the custom function that tracks mouse scroll
 	glfwSetScrollCallback(window, scroll_callback);
 
-	//Set the custom function that tracks mouse button clicking
-	//glfwSetMouseButtonCallback(window, mouse_button_callback);
-
+	//Set the custom function that tracks mouse position
 	glfwSetCursorPosCallback(window, cursor_position_callback);
-	//glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, 1);
-	
 
 	//Bring the new window to the foreground (not strictly necessary but convenient)
 	glfwMakeContextCurrent(window);
@@ -124,6 +120,7 @@ void ErrorCallback(int error, const char* description) {
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	//Key codes are often prefixed with GLFW_KEY_ and can be found on the GLFW website
+	
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	}
@@ -155,6 +152,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		sc=7;
 		reload=true;
 	}
+	if (key == GLFW_KEY_LEFT){
+		renderer->rotVal += 3.14/12;
+	}
+
+	if (key == GLFW_KEY_RIGHT){
+		renderer->rotVal -= 3.14/12;
+	}
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -165,10 +169,6 @@ if(renderer->zoom<1)
 	renderer->zoom=1;
 reload=true;
 }
-
-//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-//{
-//}
 
 
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
@@ -187,7 +187,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 		{
 			renderer->xVal = xpos/500;
 			renderer->yVal = -ypos/500;
-			std::cout << "x:"<< xpos << "y:" << ypos << std::endl;
+			std::cout << "x:"<< xpos << " y:" << ypos << std::endl;
 		}
 
 }

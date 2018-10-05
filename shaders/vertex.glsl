@@ -14,6 +14,9 @@ layout(location = 1) in vec2 VertexUV;
 uniform float zoom;
 uniform float xVal;
 uniform float yVal;
+uniform float rotVal;
+float tempX;
+float tempY;
 
 // output to be interpolated between vertices and passed to the fragment stage
 out vec2 uv;
@@ -24,10 +27,18 @@ void main()
     mat3x3 scalingMatrix = mat3x3(zoom, 0.0, 0.0, 
                                   0.0, zoom, 0.0, 
                                   0.0, 0.0, zoom);
+                                  
     vec3 scaledPoint = scalingMatrix * VertexPosition;
 
+    mat3x3 rotatingMatrix = mat3x3(1.0, 0.0, 0.0, 
+                                   0.0, cos(rotVal), -sin(rotVal), 
+                                   0.0, sin(rotVal), cos(rotVal));
+    tempX = scaledPoint.x;
+    tempY = scaledPoint.y;
+    scaledPoint.x = tempX * cos(rotVal) - tempY * sin(rotVal);
+    scaledPoint.y = tempY * cos(rotVal) + tempX * sin(rotVal);
+
     // assign vertex position without modification
-    
     //gl_Position = vec4(scaledPoint.xy, 0.0, 1.0);
 
     mat4x4 translatingMatrix = mat4x4(1.0, 0.0, 0.0, xVal, 
@@ -35,6 +46,7 @@ void main()
                                         0.0, 0.0, 1.0, 1.0, 
                                         0.0, 0.0, 0.0, 1.0);
 
+    //Assign vertex position after all transformations                                        
     vec4 translatedPoint = vec4(scaledPoint.xy, 0.0, 1.0) * translatingMatrix;
     gl_Position = translatedPoint;
 

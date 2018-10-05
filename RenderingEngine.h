@@ -40,9 +40,12 @@ public:
 	GLuint location;
 	GLuint locationX;
 	GLuint locationY;
+	GLuint locationR;
+
 	float zoom;
 	float xVal;
 	float yVal;
+	float rotVal;
 };
 
 #endif /* RENDERINGENGINE_H_ */

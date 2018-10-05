@@ -164,7 +164,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 renderer->zoom += yoffset/2;
-std::cout << renderer->zoom << std::endl;
+//std::cout << renderer->zoom << std::endl;
 if(renderer->zoom<1)
 	renderer->zoom=1;
 reload=true;
@@ -187,7 +187,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 		{
 			renderer->xVal = xpos/500;
 			renderer->yVal = -ypos/500;
-			std::cout << "x:"<< xpos << " y:" << ypos << std::endl;
+			//std::cout << "x:"<< xpos << " y:" << ypos << std::endl;
 		}
 
 }

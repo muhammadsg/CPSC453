@@ -19,6 +19,8 @@
 
 int sc;
 bool reload;
+int state;
+
 RenderingEngine* renderer;
 
 Program::Program() {
@@ -78,7 +80,17 @@ void Program::setupWindow() {
 
 	//Set the custom function that tracks key presses
 	glfwSetKeyCallback(window, KeyCallback);
+
+	//Set the custom function that tracks mouse scroll
 	glfwSetScrollCallback(window, scroll_callback);
+
+	//Set the custom function that tracks mouse button clicking
+	//glfwSetMouseButtonCallback(window, mouse_button_callback);
+
+	glfwSetCursorPosCallback(window, cursor_position_callback);
+	//glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, 1);
+	
+
 	//Bring the new window to the foreground (not strictly necessary but convenient)
 	glfwMakeContextCurrent(window);
 
@@ -143,16 +155,39 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		sc=7;
 		reload=true;
 	}
-	
-	
-	
-	
 }
+
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-renderer->zoom += yoffset;
+renderer->zoom += yoffset/2;
 std::cout << renderer->zoom << std::endl;
-if(renderer->zoom<0)
-	renderer->zoom=0;
+if(renderer->zoom<1)
+	renderer->zoom=1;
 reload=true;
+}
+
+//void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+//{
+//}
+
+
+void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	GLboolean leftButtonPressed;
+
+	if(state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		leftButtonPressed = true;
+	}
+	else if(state == GLFW_RELEASE)
+	{
+		leftButtonPressed = false;
+	}
+	if(leftButtonPressed)
+		{
+			renderer->xVal = xpos/500;
+			renderer->yVal = -ypos/500;
+			std::cout << "x:"<< xpos << "y:" << ypos << std::endl;
+		}
+
 }

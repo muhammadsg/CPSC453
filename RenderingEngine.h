@@ -38,7 +38,11 @@ public:
 	GLuint shaderProgram;
 
 	GLuint location;
+	GLuint locationX;
+	GLuint locationY;
 	float zoom;
+	float xVal;
+	float yVal;
 };
 
 #endif /* RENDERINGENGINE_H_ */

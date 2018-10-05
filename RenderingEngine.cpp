@@ -20,7 +20,11 @@ RenderingEngine::RenderingEngine() {
 	}
 
 	zoom = 1;
+	xVal = 0;
+	yVal = 0;
 	location = glGetUniformLocation(shaderProgram, "zoom"); //Passing data from program into our shader
+	locationX = glGetUniformLocation(shaderProgram, "xVal"); //Passing data from program into our shader
+	locationY = glGetUniformLocation(shaderProgram, "yVal"); //Passing data from program into our shader
 
 }
 
@@ -39,6 +43,8 @@ void RenderingEngine::RenderScene(const std::vector<Geometry>& objects) {
 
 	//To pass new data into shader
 	glUniform1f(location, zoom); 
+	glUniform1f(locationX, xVal);
+	glUniform1f(locationY, yVal);
 
 	for (const Geometry& g : objects) {
 		glBindVertexArray(g.vao);

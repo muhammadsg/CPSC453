@@ -159,6 +159,30 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	if (key == GLFW_KEY_RIGHT){
 		renderer->rotVal -= 3.14/12;
 	}
+
+	if (key == GLFW_KEY_A && action == GLFW_PRESS){
+		renderer->gsR = 0.333;
+		renderer->gsG = 0.333;
+		renderer->gsB = 0.333;
+	}
+
+	if (key == GLFW_KEY_S && action == GLFW_PRESS){
+		renderer->gsR = 0.299;
+		renderer->gsG = 0.587;
+		renderer->gsB = 0.114;
+	}
+	
+	if (key == GLFW_KEY_D && action == GLFW_PRESS){
+		renderer->gsR = 0.213;
+		renderer->gsG = 0.715;
+		renderer->gsB = 0.072;
+	}
+
+	if (key == GLFW_KEY_F && action == GLFW_PRESS){
+		renderer->gsR = 0.283;
+		renderer->gsG = 0.649;
+		renderer->gsB = 0.068;
+	}
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

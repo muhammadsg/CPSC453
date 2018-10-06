@@ -10,15 +10,30 @@
 in vec2 uv;
 in vec3 FragmentPosition;
 
+uniform float gsR;
+uniform float gsG;
+uniform float gsB;
+
 // first output is mapped to the framebuffer's colour index by default
 out vec4 FragmentColour;
 
 uniform sampler2DRect imageTexture;
+vec4 color;
+vec4 saturation;
+
+
+//glEnable(GL_FRAMEBUFFER_SRGB); 
+
 
 void main(void)
 {
+
+    color = texture(imageTexture, uv);
+    vec4 GreyScaleColor = vec4(color.r*=gsR, color.g*=gsG, color.b*=gsB, color.a);
+    
     // write colour output without modification
-    //FragmentColour = vec4(Colour, 0);
-	FragmentColour = texture(imageTexture, uv);
+    //FragmentColour = texture(imageTexture, uv);
+    
+	FragmentColour = GreyScaleColor;
 
 }

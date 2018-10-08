@@ -26,6 +26,11 @@ RenderingEngine::RenderingEngine() {
 	gsR = 1;
 	gsG = 1;
 	gsB = 1;
+	vign = 0;
+	neg = 0;
+	sobelV = 0;
+	sobelH = 0;
+	sobelU = 0;
 
 	//Passing data from program into our shader
 	location = glGetUniformLocation(shaderProgram, "zoom");
@@ -35,6 +40,12 @@ RenderingEngine::RenderingEngine() {
 	locationR = glGetUniformLocation(shaderProgram, "gsR");
 	locationG = glGetUniformLocation(shaderProgram, "gsG");
 	locationB = glGetUniformLocation(shaderProgram, "gsB");
+	locationV = glGetUniformLocation(shaderProgram, "vign");
+	locationNeg = glGetUniformLocation(shaderProgram,"neg");
+	locationsV = glGetUniformLocation(shaderProgram, "sobelV");
+	locationsH = glGetUniformLocation(shaderProgram, "sobelH");
+	locationsU = glGetUniformLocation(shaderProgram, "sobelU");
+	
 }
 
 RenderingEngine::~RenderingEngine() {
@@ -58,6 +69,11 @@ void RenderingEngine::RenderScene(const std::vector<Geometry>& objects) {
 	glUniform1f(locationR, gsR);
 	glUniform1f(locationG, gsG);
 	glUniform1f(locationB, gsB);
+	glUniform1i(locationV, vign);
+	glUniform1i(locationNeg, neg);
+	glUniform1i(locationsV, sobelV);
+	glUniform1i(locationsH, sobelH);
+	glUniform1i(locationsU, sobelU);
 
 	for (const Geometry& g : objects) {
 		glBindVertexArray(g.vao);

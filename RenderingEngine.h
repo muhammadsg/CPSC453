@@ -44,6 +44,11 @@ public:
 	GLuint locationR;
 	GLuint locationG;
 	GLuint locationB;
+	GLuint locationV;
+	GLuint locationNeg;
+	GLuint locationsV;
+	GLuint locationsH;
+	GLuint locationsU;
 
 	float zoom;
 	float xVal;
@@ -52,6 +57,11 @@ public:
 	float gsR;
 	float gsG;
 	float gsB;
+	int vign;
+	int neg;
+	int sobelV;
+	int sobelH;
+	int sobelU;
 
 };
 

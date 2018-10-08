@@ -160,29 +160,109 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		renderer->rotVal -= 3.14/12;
 	}
 
-	if (key == GLFW_KEY_A && action == GLFW_PRESS){
+	//Press R to reset color settings
+	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+		renderer->sobelV = 0;
+		renderer->sobelH = 0;
+		renderer->sobelU = 0;
+		renderer->neg = 0;
+		renderer->vign = 0;
+		renderer->gsR = 1.0;
+		renderer->gsG = 1.0;
+		renderer->gsB = 1.0;
+	}
+
+	//Press T for custom filter (vignette) may be toggled on/off
+	if (key == GLFW_KEY_T && action == GLFW_PRESS) {
+		if(renderer->vign == 0)
+			renderer->vign = 1;
+		else
+			renderer->vign = 0;
+	}
+	
+	//Press Y for custom filter (negative) may be toggled on/off
+	if (key == GLFW_KEY_Y && action == GLFW_PRESS) {
+		if(renderer->neg == 0)
+			renderer->neg = 1;
+		else
+			renderer->neg = 0;
+	}
+
+	//Press A for first grayscale filter
+	if (key == GLFW_KEY_A && action == GLFW_PRESS) {
 		renderer->gsR = 0.333;
 		renderer->gsG = 0.333;
 		renderer->gsB = 0.333;
 	}
 
-	if (key == GLFW_KEY_S && action == GLFW_PRESS){
+	//Press S for second grayscale filter
+	if (key == GLFW_KEY_S && action == GLFW_PRESS) {
 		renderer->gsR = 0.299;
 		renderer->gsG = 0.587;
 		renderer->gsB = 0.114;
 	}
-	
-	if (key == GLFW_KEY_D && action == GLFW_PRESS){
+
+	//Press D for third grayscale filter
+	if (key == GLFW_KEY_D && action == GLFW_PRESS) {
 		renderer->gsR = 0.213;
 		renderer->gsG = 0.715;
 		renderer->gsB = 0.072;
 	}
 
-	if (key == GLFW_KEY_F && action == GLFW_PRESS){
-		renderer->gsR = 0.283;
-		renderer->gsG = 0.649;
-		renderer->gsB = 0.068;
+	//Press F for vertical sobel filter (makes image grey first)
+	if (key == GLFW_KEY_F && action == GLFW_PRESS) {
+		if(renderer->sobelV == 0)
+		{	
+			renderer->gsR = 0.299;
+			renderer->gsG = 0.587;
+			renderer->gsB = 0.114;
+			renderer->sobelV = 1;
+		}	
+		else
+		{
+			renderer-> sobelV = 0;
+			renderer->gsR = 1.0;
+			renderer->gsG = 1.0;
+			renderer->gsB = 1.0;
+		}
 	}
+
+	//Press G for horizontal sobel filter (makes image grey first)
+	if (key == GLFW_KEY_G && action == GLFW_PRESS) {
+		if(renderer->sobelH == 0)
+		{	
+			renderer->gsR = 0.299;
+			renderer->gsG = 0.587;
+			renderer->gsB = 0.114;
+			renderer->sobelH = 1;
+		}	
+		else
+		{
+			renderer-> sobelH = 0;
+			renderer->gsR = 1.0;
+			renderer->gsG = 1.0;
+			renderer->gsB = 1.0;
+		}
+	}
+
+	//Press H for unsharp mask filter (makes image grey first)
+	if (key == GLFW_KEY_H && action == GLFW_PRESS) {
+		if(renderer->sobelU == 0)
+		{	
+			renderer->gsR = 0.299;
+			renderer->gsG = 0.587;
+			renderer->gsB = 0.114;
+			renderer->sobelU = 1;
+		}	
+		else
+		{
+			renderer-> sobelU = 0;
+			renderer->gsR = 1.0;
+			renderer->gsG = 1.0;
+			renderer->gsB = 1.0;
+		}
+	}
+
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

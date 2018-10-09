@@ -276,21 +276,25 @@ reload=true;
 
 
 void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
-{
+{	
 	GLboolean leftButtonPressed;
 
-	if(state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+
+	if(state == GLFW_PRESS)
 	{
 		leftButtonPressed = true;
 	}
+
 	else if(state == GLFW_RELEASE)
 	{
 		leftButtonPressed = false;
 	}
+
 	if(leftButtonPressed)
 		{
-			renderer->xVal = xpos/500;
-			renderer->yVal = -ypos/500;
+			renderer->xVal = (xpos - 256)/256;
+			renderer->yVal = -(ypos - 256)/256;
 			//std::cout << "x:"<< xpos << " y:" << ypos << std::endl;
 		}
 

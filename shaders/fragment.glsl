@@ -113,7 +113,7 @@ void main(void)
                                           0.0f, 0.0f, 0.0f,
                                           1.0f, 2.0f, 1.0f); 
                 filterToKernel(kernel, vertS);
-                filterColor = abs(filterColor);
+                filterColor = 1 - abs(filterColor);
         }
 
         if(sobelU == 1)
@@ -122,7 +122,7 @@ void main(void)
                                         -1.0f, 5.0f, -1.0f,
                                          0.0f, -1.0f, 0.0f); 
                 filterToKernel(kernel, vertS);
-                filterColor = abs(filterColor);
+                filterColor =  1 - abs(filterColor);
         }
     }
     

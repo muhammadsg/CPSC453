@@ -28,7 +28,6 @@ public:
 
 private:
 	RenderingEngine* renderer;
-
 	Geometry rectangle;
 
 	//list of objects in the scene

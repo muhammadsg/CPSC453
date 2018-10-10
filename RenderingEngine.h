@@ -49,6 +49,9 @@ public:
 	GLuint locationsV;
 	GLuint locationsH;
 	GLuint locationsU;
+	GLuint locationg_3;
+	GLuint locationg_5;
+	GLuint locationg_7;
 
 	float zoom;
 	float xVal;
@@ -62,6 +65,9 @@ public:
 	int sobelV;
 	int sobelH;
 	int sobelU;
+	int g_3;
+	int g_5;
+	int g_7;
 
 };
 

@@ -262,8 +262,27 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			renderer->gsB = 1.0;
 		}
 	}
+	if (key == GLFW_KEY_J && action == GLFW_PRESS) {
+		if(renderer->g_3==0)
+			renderer->g_3=1;
+		else
+			renderer->g_3=0;
+		}
+	if (key == GLFW_KEY_K && action == GLFW_PRESS) {
+		if(renderer->g_5==0)
+			renderer->g_5=1;
+		else
+			renderer->g_5=0;
+		}
+	if (key == GLFW_KEY_L && action == GLFW_PRESS) {
+		if(renderer->g_7==0)
+			renderer->g_7=1;
+		else
+			renderer->g_7=0;
+		
+	}
+	}
 
-}
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {

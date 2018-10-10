@@ -46,7 +46,7 @@ void Program::start() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if (reload==true){
-			scene->Reload(sc,renderingEngine->zoom);
+			scene->Reload(sc);
 			reload=false;
 		}
 	}
@@ -119,7 +119,6 @@ void ErrorCallback(int error, const char* description) {
 }
 
 void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	//Key codes are often prefixed with GLFW_KEY_ and can be found on the GLFW website
 	
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -152,6 +151,22 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		sc=7;
 		reload=true;
 	}
+
+	if (key == GLFW_KEY_8 && action == GLFW_PRESS) {
+		sc=8;
+		reload=true;
+	}
+
+	if (key == GLFW_KEY_9 && action == GLFW_PRESS) {
+		sc=9;
+		reload=true;
+	}
+
+	if (key == GLFW_KEY_0 && action == GLFW_PRESS) {
+		sc=10;
+		reload=true;
+	}
+
 	if (key == GLFW_KEY_LEFT){
 		renderer->rotVal += 3.14/12;
 	}
@@ -165,6 +180,9 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 		renderer->sobelV = 0;
 		renderer->sobelH = 0;
 		renderer->sobelU = 0;
+		renderer->g_3 = 0;
+		renderer->g_5 = 0;
+		renderer->g_7 = 0;
 		renderer->neg = 0;
 		renderer->vign = 0;
 		renderer->gsR = 1.0;
@@ -190,23 +208,50 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	//Press A for first grayscale filter
 	if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-		renderer->gsR = 0.333;
-		renderer->gsG = 0.333;
-		renderer->gsB = 0.333;
+		if (renderer->gsR == 1.0)
+		{
+			renderer->gsR = 0.333;
+			renderer->gsG = 0.333;
+			renderer->gsB = 0.333;
+		}
+		else
+		{
+			renderer->gsR = 1.0;
+			renderer->gsG = 1.0;
+			renderer->gsB = 1.0;
+		}
 	}
 
 	//Press S for second grayscale filter
 	if (key == GLFW_KEY_S && action == GLFW_PRESS) {
-		renderer->gsR = 0.299;
-		renderer->gsG = 0.587;
-		renderer->gsB = 0.114;
+		if (renderer->gsR == 1.0)
+		{
+			renderer->gsR = 0.299;
+			renderer->gsG = 0.587;
+			renderer->gsB = 0.114;
+		}
+		else
+		{
+			renderer->gsR = 1.0;
+			renderer->gsG = 1.0;
+			renderer->gsB = 1.0;
+		}
 	}
 
 	//Press D for third grayscale filter
 	if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-		renderer->gsR = 0.213;
-		renderer->gsG = 0.715;
-		renderer->gsB = 0.072;
+		if (renderer->gsR == 1.0)
+		{
+			renderer->gsR = 0.213;
+			renderer->gsG = 0.715;
+			renderer->gsB = 0.072;
+		}
+		else
+		{
+			renderer->gsR = 1.0;
+			renderer->gsG = 1.0;
+			renderer->gsB = 1.0;
+		}
 	}
 
 	//Press F for vertical sobel filter (makes image grey first)
@@ -262,27 +307,29 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 			renderer->gsB = 1.0;
 		}
 	}
+
 	if (key == GLFW_KEY_J && action == GLFW_PRESS) {
 		if(renderer->g_3==0)
 			renderer->g_3=1;
 		else
 			renderer->g_3=0;
 		}
+
 	if (key == GLFW_KEY_K && action == GLFW_PRESS) {
 		if(renderer->g_5==0)
 			renderer->g_5=1;
 		else
 			renderer->g_5=0;
 		}
+
 	if (key == GLFW_KEY_L && action == GLFW_PRESS) {
 		if(renderer->g_7==0)
 			renderer->g_7=1;
 		else
 			renderer->g_7=0;
-		
-	}
 	}
 
+}
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -314,7 +361,6 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 		{
 			renderer->xVal = (xpos - 256)/256;
 			renderer->yVal = -(ypos - 256)/256;
-			//std::cout << "x:"<< xpos << " y:" << ypos << std::endl;
 		}
 
 }

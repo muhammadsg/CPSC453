@@ -173,37 +173,22 @@ void filterToKernel(vec4[9] kernel, float[9] filter)
 {
     for(int i = 0; i < filter.length; i++)
     {
-        filterColor += kernel[i] * filter[i]; //Not sure if this is correctly doin sobel
+      filterColor += kernel[i] * filter[i];
     }
-
-    //vec4 sobel_edge_v = kernel[2] + (2.0*kernel[5]) + kernel[8] - (kernel[0] + (2.0*kernel[3]) + kernel[6]);
-  	//filterColor = abs(sobel_edge_v);
-    //vec4 sobel_edge_h = kernel[0] + (2.0*kernel[1]) + kernel[2] - (kernel[6] + (2.0*kernel[7]) + kernel[8]);
-	//filterColor = sqrt((sobel_edge_h * sobel_edge_h) + (sobel_edge_v * sobel_edge_v));
 } 
 void filterToKernel(vec4[25] kernel, float[25] filter)
 {
     for(int i = 0; i < filter.length; i++)
     {
-        filterColor += kernel[i] * filter[i]; //Not sure if this is correctly doin sobel
+       filterColor += kernel[i] * filter[i];
     }
-
-    //vec4 sobel_edge_v = kernel[2] + (2.0*kernel[5]) + kernel[8] - (kernel[0] + (2.0*kernel[3]) + kernel[6]);
-  	//filterColor = abs(sobel_edge_v);
-    //vec4 sobel_edge_h = kernel[0] + (2.0*kernel[1]) + kernel[2] - (kernel[6] + (2.0*kernel[7]) + kernel[8]);
-	//filterColor = sqrt((sobel_edge_h * sobel_edge_h) + (sobel_edge_v * sobel_edge_v));
 } 
 void filterToKernel(vec4[49] kernel, float[49] filter)
 {
     for(int i = 0; i < filter.length; i++)
     {
-        filterColor += kernel[i] * filter[i]; //Not sure if this is correctly doin sobel
+        filterColor += kernel[i] * filter[i]; 
     }
-
-    //vec4 sobel_edge_v = kernel[2] + (2.0*kernel[5]) + kernel[8] - (kernel[0] + (2.0*kernel[3]) + kernel[6]);
-  	//filterColor = abs(sobel_edge_v);
-    //vec4 sobel_edge_h = kernel[0] + (2.0*kernel[1]) + kernel[2] - (kernel[6] + (2.0*kernel[7]) + kernel[8]);
-	//filterColor = sqrt((sobel_edge_h * sobel_edge_h) + (sobel_edge_v * sobel_edge_v));
 } 
 
 
@@ -261,7 +246,8 @@ void main(void)
                 float[9] vertS = float[](-1.0f, 0.0f, 1.0f,
                                          -2.0f, 0.0f, 2.0f,
                                          -1.0f, 0.0f, 1.0f); 
-                filterToKernel(kernel, vertS);
+                filterColor = kernel[2] + (2.0*kernel[5]) + kernel[8] - (kernel[0] + (2.0*kernel[3]) + kernel[6]);
+                //filterToKernel(kernel, vertS);
                 filterColor = abs(filterColor);
         }
 
@@ -270,8 +256,9 @@ void main(void)
                 float[9] vertS = float[](-1.0f, -2.0f, -1.0f,
                                           0.0f, 0.0f, 0.0f,
                                           1.0f, 2.0f, 1.0f); 
-                filterToKernel(kernel, vertS);
-                filterColor = 1 - abs(filterColor);
+                filterColor = kernel[0] + (2.0*kernel[1]) + kernel[2] - (kernel[6] + (2.0*kernel[7]) + kernel[8]);
+                //filterToKernel(kernel, vertS);
+                filterColor = abs(filterColor);
         }
 
         if(sobelU == 1)
@@ -280,7 +267,7 @@ void main(void)
                                         -1.0f, 5.0f, -1.0f,
                                          0.0f, -1.0f, 0.0f); 
                 filterToKernel(kernel, vertS);
-                filterColor =  1 - abs(filterColor);
+                filterColor =  abs(filterColor);
         }
     }
     

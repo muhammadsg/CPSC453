@@ -21,8 +21,8 @@ class Scene {
 public:
 	Scene(RenderingEngine* renderer);
 	virtual ~Scene();
-	void Reload(int sc,int zoom);
-	void Draw (MyTexture texture, int zoom);
+	void Reload(int sc);
+	void Draw (MyTexture texture);
 	//Send geometry to the renderer
 	void displayScene();
 

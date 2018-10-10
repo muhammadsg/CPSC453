@@ -83,6 +83,7 @@ void RenderingEngine::RenderScene(const std::vector<Geometry>& objects) {
 	glUniform1i(locationg_3, g_3);
 	glUniform1i(locationg_5, g_5);
 	glUniform1i(locationg_7, g_7);
+	
 	for (const Geometry& g : objects) {
 		glBindVertexArray(g.vao);
 		glDrawArrays(g.drawMode, 0, g.verts.size());
